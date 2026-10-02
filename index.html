@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONM Electrical Ltd | Master Electricians</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        onmgold: '#E2B846',
+                        onmdark: '#050505',
+                        onmgray: '#111111'
+                    },
+                    fontFamily: {
+                        oswald: ['Oswald', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'spin-slow': 'spin 3s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-onmdark text-white font-inter antialiased overflow-x-hidden selection:bg-onmgold selection:text-black">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <!-- Pre-loader -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-onmdark flex flex-col items-center justify-center transition-opacity duration-500">
+        <img src="1000278351.jpg" alt="ONM Logo" class="w-32 h-32 object-contain animate-spin-slow mb-6">
+        <h1 class="font-oswald text-3xl tracking-widest text-onmgold animate-pulse">ONM ELECTRICAL LTD</h1>
+    </div>
+
+    <!-- Floating Nav Pill -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex justify-between items-center transition-all duration-300 hover:border-white/20">
+        <div class="flex items-center gap-3">
+            <img src="1000278351.jpg" alt="ONM Logo" class="h-10 w-auto rounded-full">
+            <span class="font-oswald text-lg hidden sm:block tracking-wide">ONM ELECTRICAL</span>
+        </div>
+        <div class="hidden md:flex gap-8 text-sm font-semibold tracking-widest text-gray-400">
+            <a href="#services" class="hover:text-onmgold transition">SERVICES</a>
+            <a href="#projects" class="hover:text-onmgold transition">PROJECTS</a>
+        </div>
+        <a href="tel:07707525559" class="bg-onmgold text-black font-oswald tracking-widest px-6 py-2 rounded-full hover:bg-white transition duration-300 text-sm">
+            CALL NOW
+        </a>
+    </nav>
+
+    <!-- Cinematic Hero -->
+    <section class="relative min-h-screen flex flex-col justify-center items-center pt-32 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('assets/images/hero-bg.jpg')] bg-cover bg-center opacity-10 grayscale"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-onmdark/80 to-onmdark"></div>
+        
+        <div class="relative z-10 text-center px-4 max-w-6xl w-full">
+            <h1 class="font-oswald text-6xl md:text-8xl lg:text-[9rem] leading-none font-bold uppercase tracking-tighter mb-6">
+                No Compromises.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-onmgold to-yellow-600">Perfect Power.</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
+                Master electricians providing precision engineering for high-end residential, commercial, and industrial builds. Built entirely on local recommendations.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="tel:07707525559" class="group relative px-8 py-4 bg-onmgold text-black font-oswald text-xl tracking-widest overflow-hidden rounded-sm">
+                    <span class="relative z-10">07707525559</span>
+                    <div class="absolute inset-0 bg-white scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100"></div>
+                </a>
+                <a href="tel:07765857661" class="font-oswald tracking-widest text-lg text-gray-400 hover:text-white transition pb-1 border-b border-white/20 hover:border-white">
+                    ALT: 07765857661
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Infinite Marquee -->
+    <div class="w-full bg-onmgold py-4 overflow-hidden flex border-y border-yellow-600">
+        <div class="whitespace-nowrap animate-marquee flex gap-10 font-oswald text-2xl text-black font-bold tracking-widest">
+            <span>FULL & PARTIAL REWIRES ⚡️</span>
+            <span>FAULT FINDING ⚡️</span>
+            <span>FUSEBOX UPGRADES ⚡️</span>
+            <span>EICR + EIC ⚡️</span>
+            <span>RESIDENTIAL ⚡️</span>
+            <span>COMMERCIAL & INDUSTRIAL ⚡️</span>
+        </div>
+        <div class="whitespace-nowrap animate-marquee flex gap-10 font-oswald text-2xl text-black font-bold tracking-widest" aria-hidden="true">
+            <span>FULL & PARTIAL REWIRES ⚡️</span>
+            <span>FAULT FINDING ⚡️</span>
+            <span>FUSEBOX UPGRADES ⚡️️</span>
+            <span>EICR + EIC ⚡️</span>
+            <span>RESIDENTIAL ⚡️</span>
+            <span>COMMERCIAL & INDUSTRIAL ⚡️</span>
+        </div>
+    </div>
+
+    <!-- Luxury Animated Bento Grid Services -->
+    <section id="services" class="py-32 px-4 max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-16">
+            <h2 class="font-oswald text-5xl md:text-7xl uppercase tracking-tighter">Master <span class="text-transparent bg-clip-text bg-gradient-to-r from-onmgold to-yellow-600">Specialties</span></h2>
+            <p class="hidden md:block text-gray-500 font-oswald tracking-[0.2em] uppercase">Hover to explore</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+            
+            <!-- Large Feature Box (Commercial) -->
+            <div class="group relative md:col-span-2 md:row-span-2 overflow-hidden rounded-3xl bg-neutral-950 border border-white/5 hover:border-onmgold/30 transition-colors duration-500">
+                <!-- Background Image: Grayscale to Color & Smooth Zoom -->
+                <div class="absolute inset-0 bg-[url('assets/images/commercial-bg.jpg')] bg-cover bg-center transition-all duration-[1.5s] ease-out group-hover:scale-105 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-60"></div>
+                
+                <!-- Heavy Bottom Gradient for Text Legibility -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                
+                <!-- Content Block -->
+                <div class="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
+                    <!-- Expanding Line & Number -->
+                    <div class="flex items-center gap-4 mb-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                        <span class="text-onmgold font-oswald tracking-[0.2em] text-sm">01</span>
+                        <div class="h-[1px] w-12 bg-onmgold/50 group-hover:w-32 transition-all duration-700 ease-out"></div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out delay-75">
+                        <div>
+                            <h3 class="font-oswald text-4xl md:text-6xl uppercase mb-2 text-white group-hover:text-onmgold transition-colors duration-500">Commercial & Industrial</h3>
+                            <!-- Description fades in on hover -->
+                            <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
+                                <p class="text-gray-400 text-lg max-w-md mt-4 font-light leading-relaxed">Large-scale fit-outs, heavy-duty electrical infrastructure, and mandatory safety compliance (EICR + EIC) for modern businesses.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Animated Circular Button -->
+                        <div class="hidden md:flex w-16 h-16 rounded-full border border-white/20 items-center justify-center group-hover:bg-onmgold group-hover:border-onmgold transition-all duration-500 shrink-0 overflow-hidden">
+                            <svg class="w-6 h-6 text-white group-hover:text-black transform -translate-x-10 group-hover:translate-x-0 transition-transform duration-500 ease-out delay-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Small Box 1 (Residential) -->
+            <div class="group relative overflow-hidden rounded-3xl bg-neutral-950 border border-white/5 hover:border-onmgold/30 transition-colors duration-500">
+                <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                <div class="absolute inset-0 bg-[url('assets/images/residential-bg.jpg')] bg-cover bg-center transition-all duration-1000 group-hover:scale-110 grayscale opacity-10 group-hover:opacity-30 group-hover:grayscale-0"></div>
+                
+                <div class="relative z-20 h-full p-8 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <span class="text-onmgold font-oswald tracking-[0.2em] text-sm">02</span>
+                        <svg class="w-6 h-6 text-gray-600 group-hover:text-onmgold transform group-hover:rotate-45 transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                    </div>
+                    
+                    <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                        <h3 class="font-oswald text-3xl uppercase mb-2">Residential Work</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed opacity-60 group-hover:opacity-100 transition-opacity duration-500">Full & partial rewires, smart home integrations, and custom lighting design.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Small Box 2 (Faults & Upgrades) -->
+            <div class="group relative overflow-hidden rounded-3xl bg-neutral-950 border border-white/5 hover:border-onmgold/30 transition-colors duration-500">
+                <div class="absolute inset-0 bg-gradient-to-tl from-onmgold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                <div class="absolute inset-0 bg-[url('assets/images/faults-bg.jpg')] bg-cover bg-center transition-all duration-1000 group-hover:scale-110 grayscale opacity-10 group-hover:opacity-30 group-hover:grayscale-0"></div>
+                
+                <div class="relative z-20 h-full p-8 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <span class="text-onmgold font-oswald tracking-[0.2em] text-sm">03</span>
+                        <svg class="w-6 h-6 text-gray-600 group-hover:text-onmgold transform group-hover:scale-110 transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    
+                    <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                        <h3 class="font-oswald text-3xl uppercase mb-2">Faults & Upgrades</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed opacity-60 group-hover:opacity-100 transition-opacity duration-500">Rapid fault finding and complete fusebox upgrades. Keeping your property safe.</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Social Proof / Instagram Grid -->
+    <section id="projects" class="py-20 bg-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-end mb-10">
+                <h2 class="font-oswald text-3xl md:text-5xl uppercase tracking-tighter">The Work Speaks<br><span class="text-gray-600">For Itself.</span></h2>
+                <a href="#" class="hidden md:block text-onmgold font-oswald tracking-widest hover:text-white transition">@ONM_ELECTRICAL_LTD</a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Placeholders: Swap with insta1.jpg, insta2.jpg, etc. -->
+                <div class="aspect-square bg-onmgray rounded-xl overflow-hidden relative group">
+                    <img src="assets/images/project1.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
+                </div>
+                <div class="aspect-square bg-onmgray rounded-xl overflow-hidden relative group">
+                    <img src="assets/images/project2.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
+                </div>
+                <div class="aspect-square bg-onmgray rounded-xl overflow-hidden relative group">
+                    <img src="assets/images/residential-bg.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
+                </div>
+                <div class="aspect-square bg-onmgray rounded-xl overflow-hidden relative group">
+                    <img src="assets/images/faults-bg.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Minimalist Footer -->
+    <footer class="py-32 px-4 text-center border-t border-white/5 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('1000278351.jpg')] bg-contain bg-center opacity-[0.02] bg-no-repeat"></div>
+        <h2 class="font-oswald text-6xl md:text-[10rem] uppercase tracking-tighter text-white/5 mb-10 relative z-10 hover:text-white/10 transition duration-500 cursor-default">
+            LET'S BUILD.
+        </h2>
+        
+        <div class="relative z-10 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+            <a href="tel:07707525559" class="font-oswald text-2xl hover:text-onmgold transition">07707525559</a>
+            <span class="w-2 h-2 bg-onmgold rounded-full hidden md:block"></span>
+            <a href="tel:07765857661" class="font-oswald text-2xl hover:text-onmgold transition">07765857661</a>
+        </div>
+        
+        <p class="mt-20 text-gray-600 text-sm tracking-widest font-oswald relative z-10">
+            &copy; 2026 ONM ELECTRICAL LTD. ALL RIGHTS RESERVED.
+        </p>
+    </footer>
+
+    <!-- Scripts for custom interactivity -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,18 @@
+/* Custom Cursor */
+body { cursor: none; }
+.cursor-dot {
+    width: 8px; height: 8px; background: #E2B846; border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+}
+.cursor-outline {
+    width: 40px; height: 40px; border: 1px solid rgba(226, 184, 70, 0.5); border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%); transition: 0.1s ease-out;
+}
+/* Hover effect for cursor */
+a:hover ~ .cursor-dot, button:hover ~ .cursor-dot { transform: translate(-50%, -50%) scale(2); }
+
+/* Hide scrollbar for bento grid */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
