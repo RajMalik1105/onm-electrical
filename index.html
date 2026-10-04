@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONM Electrical Ltd | Master Electricians</title>
+    <title>ONM Electrical Ltd | Luxury Master Electricians</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        onmgold: '#E2B846',
-                        onmdark: '#050505',
-                        onmgray: '#111111'
+                        onmgold: '#E2B846',       /* Champagne Gold */
+                        onmdark: '#050505',       /* Obsidian Black */
+                        onmgray: '#111111',       /* Deep Charcoal */
+                        silver: '#888888'         /* Pearl Silver */
                     },
                     fontFamily: {
                         oswald: ['Oswald', 'sans-serif'],
                         inter: ['Inter', 'sans-serif'],
                     },
                     animation: {
-                        'marquee': 'marquee 25s linear infinite',
+                        'marquee': 'marquee 30s linear infinite',
                         'spin-slow': 'spin 3s linear infinite',
                     },
                     keyframes: {
@@ -34,63 +36,170 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-onmdark text-white font-inter antialiased overflow-x-hidden selection:bg-onmgold selection:text-black">
+    
+    <style>
+        body { 
+            cursor: none; 
+            background-color: #050505; 
+            overflow-x: hidden;
+        }
+        
+        /* Custom Cursor */
+        .cursor-dot {
+            width: 8px; height: 8px; background: #E2B846; border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+        }
+        .cursor-outline {
+            width: 40px; height: 40px; border: 1px solid rgba(226, 184, 70, 0.4); border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%); transition: left 0.1s ease-out, top 0.1s ease-out, transform 0.2s;
+        }
+        
+        a:hover ~ .cursor-outline, button:hover ~ .cursor-outline, .interactive:hover ~ .cursor-outline { 
+            transform: translate(-50%, -50%) scale(1.5); 
+            background: rgba(226, 184, 70, 0.05);
+        }
+        
+        /* Background Grain Overlay */
+        .bg-grain {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        
+        /* Cinematic Hollow Text Stroke */
+        .text-stroke {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+            transition: all 0.5s ease;
+        }
+        .text-stroke:hover {
+            -webkit-text-stroke: 1px rgba(226, 184, 70, 0.8);
+            text-shadow: 0 0 30px rgba(226, 184, 70, 0.2);
+        }
+        
+        /* Flex Accordion Transitions */
+        .accordion-item {
+            transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.8s;
+        }
+        .accordion-content {
+            transition: max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease-out;
+        }
 
-    <!-- Custom Cursor -->
+        /* Hide scrollbars */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* --- STACKED GALLERY LOGIC --- */
+        #gallery-container {
+            --spread-scale: 0.5; /* Mobile scale by default */
+        }
+        @media (min-width: 768px) {
+            #gallery-container {
+                --spread-scale: 1; /* Desktop scale */
+            }
+        }
+
+        /* Resting State (Scattered & Tilted) */
+        .gallery-item {
+            position: absolute;
+            transform-origin: center center;
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translate(calc(var(--tx-rest) * 1px), calc(var(--ty-rest) * 1px)) rotate(var(--rot-rest));
+        }
+
+        /* Hover State (Straightened, Scaled, Glowing, Spread Out) */
+        #gallery-container:hover .gallery-item {
+            /* Notice rotate(0deg) forces them perfectly straight on hover */
+            transform: translate(calc(var(--tx-spread) * var(--spread-scale) * 1px), calc(var(--ty-spread) * var(--spread-scale) * 1px)) rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(226,184,70,0.25);
+            z-index: var(--z-index);
+            border-color: rgba(226, 184, 70, 0.6);
+        }
+
+        /* Individual Image Configurations */
+        /* Img 1 */
+        .gallery-item:nth-child(2) { --tx-rest: -3; --ty-rest: 4; --rot-rest: -3deg; --tx-spread: -350; --ty-spread: -150; --z-index: 20; }
+        /* Img 2 */
+        .gallery-item:nth-child(3) { --tx-rest: 5; --ty-rest: -2; --rot-rest: 2deg; --tx-spread: 0; --ty-spread: -220; --z-index: 15; }
+        /* Img 3 */
+        .gallery-item:nth-child(4) { --tx-rest: -2; --ty-rest: -6; --rot-rest: 4deg; --tx-spread: 350; --ty-spread: -100; --z-index: 18; }
+        /* Img 4 */
+        .gallery-item:nth-child(5) { --tx-rest: 6; --ty-rest: 3; --rot-rest: -5deg; --tx-spread: -380; --ty-spread: 120; --z-index: 22; }
+        /* Img 5 */
+        .gallery-item:nth-child(6) { --tx-rest: -4; --ty-rest: 5; --rot-rest: 1deg; --tx-spread: -100; --ty-spread: 200; --z-index: 19; }
+        /* Img 6 */
+        .gallery-item:nth-child(7) { --tx-rest: 3; --ty-rest: -4; --rot-rest: 6deg; --tx-spread: 250; --ty-spread: 180; --z-index: 25; }
+        /* Img 7 */
+        .gallery-item:nth-child(8) { --tx-rest: 0; --ty-rest: 0; --rot-rest: -2deg; --tx-spread: 420; --ty-spread: 40; --z-index: 21; }
+    </style>
+</head>
+<body class="bg-onmdark text-white font-inter antialiased selection:bg-onmgold selection:text-black">
+
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-outline" id="cursor-outline"></div>
+    <div class="fixed inset-0 z-0 bg-grain"></div>
 
-    <!-- Pre-loader -->
-    <div id="loader" class="fixed inset-0 z-[100] bg-onmdark flex flex-col items-center justify-center transition-opacity duration-500">
-        <img src="1000278351.jpg" alt="ONM Logo" class="w-32 h-32 object-contain animate-spin-slow mb-6">
-        <h1 class="font-oswald text-3xl tracking-widest text-onmgold animate-pulse">ONM ELECTRICAL LTD</h1>
+    <div id="loader" class="fixed inset-0 z-[100] bg-onmdark flex flex-col items-center justify-center transition-opacity duration-700">
+        <div class="w-32 h-32 rounded-full border border-white/10 flex items-center justify-center mb-6 animate-spin-slow p-4 bg-onmgray/50">
+            <img src="assets/images/logo-square.jpg" alt="ONM Logo" class="w-full h-full object-cover rounded-full">
+        </div>
+        <h1 class="font-oswald text-2xl md:text-3xl tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-onmgold to-yellow-600 animate-pulse uppercase">ONM Electrical Ltd</h1>
     </div>
 
-    <!-- Floating Nav Pill -->
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex justify-between items-center transition-all duration-300 hover:border-white/20">
-        <div class="flex items-center gap-3">
-            <img src="1000278351.jpg" alt="ONM Logo" class="h-10 w-auto rounded-full">
-            <span class="font-oswald text-lg hidden sm:block tracking-wide">ONM ELECTRICAL</span>
+    <nav id="main-nav" class="fixed top-8 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl bg-white/[0.01] backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 flex justify-between items-center transition-all duration-500 hover:bg-white/[0.03] hover:border-white/20 interactive">
+        <div class="flex items-center gap-4 pl-2 cursor-pointer">
+            <div class="w-8 h-8 rounded-full overflow-hidden bg-onmgold/10 border border-onmgold/30 flex items-center justify-center">
+                <img src="assets/images/logo-square.jpg" alt="ONM Logo" class="w-full h-full object-cover">
+            </div>
+            <span class="font-oswald text-sm hidden sm:block tracking-[0.2em] uppercase text-white/90 mt-1">ONM ELECTRICAL</span>
         </div>
-        <div class="hidden md:flex gap-8 text-sm font-semibold tracking-widest text-gray-400">
-            <a href="#services" class="hover:text-onmgold transition">SERVICES</a>
-            <a href="#projects" class="hover:text-onmgold transition">PROJECTS</a>
+        <div class="hidden md:flex gap-12 text-[11px] font-oswald tracking-[0.3em] text-silver mt-1">
+            <a href="#services" class="hover:text-onmgold transition-colors duration-300">EXPERTISE</a>
+            <a href="#projects" class="hover:text-onmgold transition-colors duration-300">PROJECTS</a>
         </div>
-        <a href="tel:07707525559" class="bg-onmgold text-black font-oswald tracking-widest px-6 py-2 rounded-full hover:bg-white transition duration-300 text-sm">
-            CALL NOW
+        <a href="tel:07707525559" class="group flex items-center gap-3 font-oswald tracking-[0.2em] px-6 py-2.5 rounded-full border border-onmgold/30 hover:border-onmgold shadow-[0_0_15px_rgba(226,184,70,0.1)] hover:shadow-[0_0_25px_rgba(226,184,70,0.3)] bg-onmgold/5 hover:bg-onmgold/10 transition-all duration-500 text-xs text-onmgold">
+            <span>CALL NOW</span>
+            <div class="w-1.5 h-1.5 rounded-full bg-onmgold group-hover:animate-pulse"></div>
         </a>
     </nav>
 
-    <!-- Cinematic Hero -->
-    <section class="relative min-h-screen flex flex-col justify-center items-center pt-32 overflow-hidden">
-        <div class="absolute inset-0 bg-[url('assets/images/hero-bg.jpg')] bg-cover bg-center opacity-10 grayscale"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-onmdark/80 to-onmdark"></div>
-        
-        <div class="relative z-10 text-center px-4 max-w-6xl w-full">
-            <h1 class="font-oswald text-6xl md:text-8xl lg:text-[9rem] leading-none font-bold uppercase tracking-tighter mb-6">
-                No Compromises.<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-onmgold to-yellow-600">Perfect Power.</span>
-            </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
-                Master electricians providing precision engineering for high-end residential, commercial, and industrial builds. Built entirely on local recommendations.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="tel:07707525559" class="group relative px-8 py-4 bg-onmgold text-black font-oswald text-xl tracking-widest overflow-hidden rounded-sm">
-                    <span class="relative z-10">07707525559</span>
-                    <div class="absolute inset-0 bg-white scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100"></div>
-                </a>
-                <a href="tel:07765857661" class="font-oswald tracking-widest text-lg text-gray-400 hover:text-white transition pb-1 border-b border-white/20 hover:border-white">
-                    ALT: 07765857661
+    <section class="relative min-h-[95vh] w-full overflow-hidden flex items-center pt-20 border-b border-white/5">
+        <div class="absolute top-[20%] -left-[10%] w-[600px] h-[600px] bg-onmgold/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-onmdark/80 to-onmdark z-0"></div>
+
+        <div class="relative z-10 w-full max-w-[90rem] mx-auto px-4 sm:px-8 h-full flex flex-col justify-center">
+            
+            <div class="absolute left-4 md:left-12 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-16">
+                <span class="rotate-[-90deg] font-oswald tracking-[0.4em] text-silver text-[10px] whitespace-nowrap opacity-50">SCROLL TO EXPLORE</span>
+                <div class="w-[1px] h-32 bg-gradient-to-b from-silver/30 to-transparent"></div>
+            </div>
+
+            <div class="relative mt-24 lg:ml-24 w-full max-w-5xl interactive">
+                <h1 class="font-oswald text-[12vw] md:text-[8rem] lg:text-[11rem] leading-[0.85] tracking-tighter m-0 flex flex-col relative z-10 select-none">
+                    <span class="text-stroke">NO COMPROMISES.</span>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-onmgold to-yellow-600 drop-shadow-2xl md:-mt-4 lg:-mt-8 pr-12 relative z-20">
+                        PERFECT POWER.
+                    </span>
+                </h1>
+            </div>
+            
+            <div class="absolute bottom-12 md:bottom-20 right-4 sm:right-8 md:right-16 lg:right-32 max-w-[320px] md:max-w-sm flex flex-col gap-8 z-20 interactive">
+                <p class="text-silver font-inter text-sm md:text-base leading-relaxed font-light">
+                    Architectural electrical engineering for high-end residential, commercial, and industrial builds. Built entirely on local recommendations.
+                </p>
+                <a href="#services" class="group flex items-center gap-5 text-white font-oswald tracking-[0.2em] text-sm transition-colors w-max">
+                    <span class="group-hover:text-onmgold transition-colors duration-300">DISCOVER EXPERTISE</span>
+                    <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-onmgold group-hover:bg-onmgold/10 transition-all duration-500 overflow-hidden shadow-lg">
+                        <svg class="w-5 h-5 text-white group-hover:text-onmgold transform group-hover:translate-x-1.5 transition-transform duration-500 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Infinite Marquee -->
-    <div class="w-full bg-onmgold py-4 overflow-hidden flex border-y border-yellow-600">
-        <div class="whitespace-nowrap animate-marquee flex gap-10 font-oswald text-2xl text-black font-bold tracking-widest">
+    <div class="w-full bg-gradient-to-r from-onmgold to-yellow-600 py-4 md:py-5 overflow-hidden flex border-y border-white/10 relative z-20 shadow-[0_0_30px_rgba(226,184,70,0.1)] interactive">
+        <div class="whitespace-nowrap animate-marquee flex gap-12 font-oswald text-xl md:text-2xl text-onmdark font-bold tracking-[0.15em]">
             <span>FULL & PARTIAL REWIRES ⚡️</span>
             <span>FAULT FINDING ⚡️</span>
             <span>FUSEBOX UPGRADES ⚡️</span>
@@ -98,144 +207,198 @@
             <span>RESIDENTIAL ⚡️</span>
             <span>COMMERCIAL & INDUSTRIAL ⚡️</span>
         </div>
-        <div class="whitespace-nowrap animate-marquee flex gap-10 font-oswald text-2xl text-black font-bold tracking-widest" aria-hidden="true">
+        <div class="whitespace-nowrap animate-marquee flex gap-12 font-oswald text-xl md:text-2xl text-onmdark font-bold tracking-[0.15em]" aria-hidden="true">
             <span>FULL & PARTIAL REWIRES ⚡️</span>
             <span>FAULT FINDING ⚡️</span>
-            <span>FUSEBOX UPGRADES ⚡️️</span>
+            <span>FUSEBOX UPGRADES ⚡</span>
             <span>EICR + EIC ⚡️</span>
             <span>RESIDENTIAL ⚡️</span>
             <span>COMMERCIAL & INDUSTRIAL ⚡️</span>
         </div>
     </div>
 
-    <!-- Luxury Animated Bento Grid Services -->
-    <section id="services" class="py-32 px-4 max-w-7xl mx-auto">
-        <div class="flex justify-between items-end mb-16">
-            <h2 class="font-oswald text-5xl md:text-7xl uppercase tracking-tighter">Master <span class="text-transparent bg-clip-text bg-gradient-to-r from-onmgold to-yellow-600">Specialties</span></h2>
-            <p class="hidden md:block text-gray-500 font-oswald tracking-[0.2em] uppercase">Hover to explore</p>
+    <!-- Horizontal Stripes Services -->
+    <section id="services" class="py-32 bg-onmdark">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-oswald text-5xl md:text-7xl uppercase tracking-tighter mb-20 text-white">Master <span class="text-transparent bg-clip-text bg-gradient-to-r from-onmgold to-yellow-600">Specialties</span></h2>
+            
+            <div class="flex flex-col border-t border-white/10">
+                
+                <!-- Service 1 -->
+                <div class="group relative border-b border-white/10 py-10 md:py-16 hover-trigger overflow-hidden cursor-none interactive">
+                    <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-onmgold transition-all duration-500 ease-out group-hover:w-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between relative z-10 transform transition-transform duration-500 ease-out group-hover:translate-x-8">
+                        <div class="flex items-center gap-6 md:gap-12">
+                            <span class="text-onmgold font-oswald text-xl tracking-widest">01</span>
+                            <h3 class="font-oswald text-4xl md:text-6xl uppercase text-white group-hover:text-onmgold transition-colors duration-500">Full & Partial Rewires</h3>
+                        </div>
+                        <div class="mt-4 md:mt-0 max-w-md opacity-0 transform translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 hidden md:block">
+                            <p class="text-gray-400 font-light">Complete strip-outs and modern rewiring solutions for older properties, ensuring safety, efficiency, and compliance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group relative border-b border-white/10 py-10 md:py-16 hover-trigger overflow-hidden cursor-none interactive">
+                    <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-onmgold transition-all duration-500 ease-out group-hover:w-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between relative z-10 transform transition-transform duration-500 ease-out group-hover:translate-x-8">
+                        <div class="flex items-center gap-6 md:gap-12">
+                            <span class="text-onmgold font-oswald text-xl tracking-widest">02</span>
+                            <h3 class="font-oswald text-4xl md:text-6xl uppercase text-white group-hover:text-onmgold transition-colors duration-500">Faults & Fuseboxes</h3>
+                        </div>
+                        <div class="mt-4 md:mt-0 max-w-md opacity-0 transform translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 hidden md:block">
+                            <p class="text-gray-400 font-light">Rapid diagnostic fault finding and premium consumer unit upgrades to protect your property from electrical failures.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group relative border-b border-white/10 py-10 md:py-16 hover-trigger overflow-hidden cursor-none interactive">
+                    <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-onmgold transition-all duration-500 ease-out group-hover:w-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between relative z-10 transform transition-transform duration-500 ease-out group-hover:translate-x-8">
+                        <div class="flex items-center gap-6 md:gap-12">
+                            <span class="text-onmgold font-oswald text-xl tracking-widest">03</span>
+                            <h3 class="font-oswald text-4xl md:text-6xl uppercase text-white group-hover:text-onmgold transition-colors duration-500">EICR + EIC</h3>
+                        </div>
+                        <div class="mt-4 md:mt-0 max-w-md opacity-0 transform translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 hidden md:block">
+                            <p class="text-gray-400 font-light">Rigorous Electrical Installation Condition Reports and safety certifications for landlords, homeowners, and commercial premises.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="group relative border-b border-white/10 py-10 md:py-16 hover-trigger overflow-hidden cursor-none interactive">
+                    <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-onmgold transition-all duration-500 ease-out group-hover:w-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between relative z-10 transform transition-transform duration-500 ease-out group-hover:translate-x-8">
+                        <div class="flex items-center gap-6 md:gap-12">
+                            <span class="text-onmgold font-oswald text-xl tracking-widest">04</span>
+                            <h3 class="font-oswald text-4xl md:text-6xl uppercase text-white group-hover:text-onmgold transition-colors duration-500">Res / Com / Ind</h3>
+                        </div>
+                        <div class="mt-4 md:mt-0 max-w-md opacity-0 transform translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 hidden md:block">
+                            <p class="text-gray-400 font-light">Versatile expertise spanning high-end residential lighting, heavy-duty commercial fit-outs, and complex industrial systems.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-32 bg-[#080808] border-y border-white/5 relative z-10 overflow-hidden flex flex-col items-center">
+        <div class="max-w-[85rem] w-full mx-auto px-4 md:px-8 flex justify-between items-end mb-10">
+            <h2 class="font-oswald text-4xl md:text-6xl uppercase tracking-tighter w-full text-center md:text-left">The Work Speaks<br><span class="text-silver">For Itself.</span></h2>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+        <!-- Interactive Stack Container -->
+        <div id="gallery-container" class="relative w-full h-[600px] flex items-center justify-center cursor-pointer group interactive mt-10">
             
-            <!-- Large Feature Box (Commercial) -->
-            <div class="group relative md:col-span-2 md:row-span-2 overflow-hidden rounded-3xl bg-neutral-950 border border-white/5 hover:border-onmgold/30 transition-colors duration-500">
-                <!-- Background Image: Grayscale to Color & Smooth Zoom -->
-                <div class="absolute inset-0 bg-[url('assets/images/commercial-bg.jpg')] bg-cover bg-center transition-all duration-[1.5s] ease-out group-hover:scale-105 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-60"></div>
-                
-                <!-- Heavy Bottom Gradient for Text Legibility -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
-                
-                <!-- Content Block -->
-                <div class="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
-                    <!-- Expanding Line & Number -->
-                    <div class="flex items-center gap-4 mb-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <span class="text-onmgold font-oswald tracking-[0.2em] text-sm">01</span>
-                        <div class="h-[1px] w-12 bg-onmgold/50 group-hover:w-32 transition-all duration-700 ease-out"></div>
-                    </div>
-                    
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out delay-75">
-                        <div>
-                            <h3 class="font-oswald text-4xl md:text-6xl uppercase mb-2 text-white group-hover:text-onmgold transition-colors duration-500">Commercial & Industrial</h3>
-                            <!-- Description fades in on hover -->
-                            <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
-                                <p class="text-gray-400 text-lg max-w-md mt-4 font-light leading-relaxed">Large-scale fit-outs, heavy-duty electrical infrastructure, and mandatory safety compliance (EICR + EIC) for modern businesses.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Animated Circular Button -->
-                        <div class="hidden md:flex w-16 h-16 rounded-full border border-white/20 items-center justify-center group-hover:bg-onmgold group-hover:border-onmgold transition-all duration-500 shrink-0 overflow-hidden">
-                            <svg class="w-6 h-6 text-white group-hover:text-black transform -translate-x-10 group-hover:translate-x-0 transition-transform duration-500 ease-out delay-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </div>
-                    </div>
-                </div>
+            <!-- Pulsing Text Indicator -->
+            <div class="absolute z-[100] text-onmgold font-oswald tracking-[0.3em] text-sm md:text-base animate-pulse pointer-events-none transition-opacity duration-500 group-hover:opacity-0 bg-black/60 px-6 py-2 rounded-full border border-onmgold/30">
+                HOVER TO EXPLORE
             </div>
 
-            <!-- Small Box 1 (Residential) -->
-            <div class="group relative overflow-hidden rounded-3xl bg-neutral-950 border border-white/5 hover:border-onmgold/30 transition-colors duration-500">
-                <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                <div class="absolute inset-0 bg-[url('assets/images/residential-bg.jpg')] bg-cover bg-center transition-all duration-1000 group-hover:scale-110 grayscale opacity-10 group-hover:opacity-30 group-hover:grayscale-0"></div>
-                
-                <div class="relative z-20 h-full p-8 flex flex-col justify-between">
-                    <div class="flex justify-between items-start">
-                        <span class="text-onmgold font-oswald tracking-[0.2em] text-sm">02</span>
-                        <svg class="w-6 h-6 text-gray-600 group-hover:text-onmgold transform group-hover:rotate-45 transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                    </div>
-                    
-                    <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <h3 class="font-oswald text-3xl uppercase mb-2">Residential Work</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed opacity-60 group-hover:opacity-100 transition-opacity duration-500">Full & partial rewires, smart home integrations, and custom lighting design.</p>
-                    </div>
-                </div>
+            <!-- Stacked Images (Full Color) -->
+            <div class="gallery-item w-[220px] md:w-[320px] aspect-square rounded-xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <img src="assets/images/onm-work-1.jpg" alt="Electrical Work 1" class="w-full h-full object-cover">
             </div>
-
-            <!-- Small Box 2 (Faults & Upgrades) -->
-            <div class="group relative overflow-hidden rounded-3xl bg-neutral-950 border border-white/5 hover:border-onmgold/30 transition-colors duration-500">
-                <div class="absolute inset-0 bg-gradient-to-tl from-onmgold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                <div class="absolute inset-0 bg-[url('assets/images/faults-bg.jpg')] bg-cover bg-center transition-all duration-1000 group-hover:scale-110 grayscale opacity-10 group-hover:opacity-30 group-hover:grayscale-0"></div>
-                
-                <div class="relative z-20 h-full p-8 flex flex-col justify-between">
-                    <div class="flex justify-between items-start">
-                        <span class="text-onmgold font-oswald tracking-[0.2em] text-sm">03</span>
-                        <svg class="w-6 h-6 text-gray-600 group-hover:text-onmgold transform group-hover:scale-110 transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    
-                    <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <h3 class="font-oswald text-3xl uppercase mb-2">Faults & Upgrades</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed opacity-60 group-hover:opacity-100 transition-opacity duration-500">Rapid fault finding and complete fusebox upgrades. Keeping your property safe.</p>
-                    </div>
-                </div>
+            
+            <div class="gallery-item w-[220px] md:w-[320px] aspect-square rounded-xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <img src="assets/images/onm-work-2.png" alt="Electrical Work 2" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="gallery-item w-[220px] md:w-[320px] aspect-square rounded-xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <img src="assets/images/onm-work-3.jpg" alt="Electrical Work 3" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="gallery-item w-[220px] md:w-[320px] aspect-square rounded-xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <img src="assets/images/onm-work-4.jpg" alt="Electrical Work 4" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="gallery-item w-[220px] md:w-[320px] aspect-square rounded-xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <img src="assets/images/onm-work-5.jpg" alt="Electrical Work 5" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="gallery-item w-[220px] md:w-[320px] aspect-square rounded-xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <img src="assets/images/onm-work-6-fusebox.png" alt="Electrical Work 6" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="gallery-item w-[220px] md:w-[320px] aspect-square rounded-xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <img src="assets/images/onm-work-7-commercial.jpg" alt="Electrical Work 7" class="w-full h-full object-cover">
             </div>
             
         </div>
     </section>
 
-    <!-- Social Proof / Instagram Grid -->
-    <section id="projects" class="py-20 bg-black border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-end mb-10">
-                <h2 class="font-oswald text-3xl md:text-5xl uppercase tracking-tighter">The Work Speaks<br><span class="text-gray-600">For Itself.</span></h2>
-                <a href="#" class="hidden md:block text-onmgold font-oswald tracking-widest hover:text-white transition">@ONM_ELECTRICAL_LTD</a>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <!-- Placeholders: Swap with insta1.jpg, insta2.jpg, etc. -->
-                <div class="aspect-square bg-onmgray rounded-xl overflow-hidden relative group">
-                    <img src="assets/images/project1.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
-                </div>
-                <div class="aspect-square bg-onmgray rounded-xl overflow-hidden relative group">
-                    <img src="assets/images/project2.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
-                </div>
-                <div class="aspect-square bg-onmgray rounded-xl overflow-hidden relative group">
-                    <img src="assets/images/residential-bg.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
-                </div>
-                <div class="aspect-square bg-onmgray rounded-xl overflow-hidden relative group">
-                    <img src="assets/images/faults-bg.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Minimalist Footer -->
-    <footer class="py-32 px-4 text-center border-t border-white/5 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('1000278351.jpg')] bg-contain bg-center opacity-[0.02] bg-no-repeat"></div>
-        <h2 class="font-oswald text-6xl md:text-[10rem] uppercase tracking-tighter text-white/5 mb-10 relative z-10 hover:text-white/10 transition duration-500 cursor-default">
+    <footer class="py-32 px-4 text-center relative overflow-hidden bg-[#020202]">
+        <h2 class="font-oswald text-[15vw] md:text-[12rem] uppercase tracking-tighter text-white/[0.03] mb-12 relative z-10 cursor-default hover:text-onmgold/10 transition-colors duration-1000 select-none">
             LET'S BUILD.
         </h2>
         
-        <div class="relative z-10 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
-            <a href="tel:07707525559" class="font-oswald text-2xl hover:text-onmgold transition">07707525559</a>
-            <span class="w-2 h-2 bg-onmgold rounded-full hidden md:block"></span>
-            <a href="tel:07765857661" class="font-oswald text-2xl hover:text-onmgold transition">07765857661</a>
+        <!-- FOOTER LOGO -->
+        <div class="relative z-10 flex justify-center mb-16 interactive">
+            <img src="assets/images/footer-logo.jpg" alt="ONM Business Card" class="w-[300px] md:w-[450px] rounded-2xl shadow-[0_15px_40px_rgba(226,184,70,0.15)] border border-white/5 hover:border-onmgold/40 transition-all duration-500 hover:scale-105">
+        </div>
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 interactive">
+            <a href="tel:07707525559" class="font-oswald text-3xl md:text-5xl tracking-widest text-silver hover:text-onmgold transition-colors duration-300">07707525559</a>
+            <span class="w-2 h-2 bg-onmgold/50 rounded-full hidden md:block"></span>
+            <a href="tel:07765857661" class="font-oswald text-3xl md:text-5xl tracking-widest text-silver hover:text-onmgold transition-colors duration-300">07765857661</a>
         </div>
         
-        <p class="mt-20 text-gray-600 text-sm tracking-widest font-oswald relative z-10">
-            &copy; 2026 ONM ELECTRICAL LTD. ALL RIGHTS RESERVED.
-        </p>
+        <div class="mt-24 pt-8 border-t border-white/5 relative z-10 max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-oswald tracking-[0.3em] text-silver/50">
+            <p>&copy; 2026 ONM ELECTRICAL LTD. ALL RIGHTS RESERVED.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-onmgold transition interactive">INSTAGRAM</a>
+                <a href="#" class="hover:text-onmgold transition interactive">CONTACT</a>
+            </div>
+        </div>
     </footer>
 
-    <!-- Scripts for custom interactivity -->
-    <script src="script.js"></script>
+    <script>
+        // Header Hide/Show on Scroll
+        const nav = document.getElementById("main-nav");
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                nav.style.transform = "translate(-50%, -200%)";
+                nav.style.opacity = "0";
+            } else {
+                nav.style.transform = "translate(-50%, 0)";
+                nav.style.opacity = "1";
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        // Custom Cursor Movement
+        const dot = document.getElementById("cursor-dot");
+        const outline = document.getElementById("cursor-outline");
+
+        window.addEventListener("mousemove", (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            // Fast follow for dot
+            dot.style.left = `${posX}px`;
+            dot.style.top = `${posY}px`;
+            
+            // Delayed follow for outline
+            setTimeout(() => {
+                outline.style.left = `${posX}px`;
+                outline.style.top = `${posY}px`;
+            }, 50);
+        });
+
+        // Preloader Logic
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                const loader = document.getElementById("loader");
+                loader.style.opacity = "0";
+                setTimeout(() => {
+                    loader.style.display = "none";
+                }, 700); 
+            }, 1800); 
+        });
+    </script>
 </body>
 </html>
-
-
